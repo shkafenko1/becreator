@@ -42,7 +42,7 @@
 
 Для детального ознакомления с требованиями и дизайном проекта, пожалуйста, обратитесь к следующим документам:
 
-*   **[Техническое задание (SRS - Software Requirements Specification)](./requirements/SRS.md)** 
-*   **[Макеты приложения (Mockups)](./mockups/)** 
+*   **[Техническое задание (SRS - Software Requirements Specification)](./docs/requirements/SRS.md)** 
+*   **[Макеты приложения (Mockups)](./docs/mockups/)** 
 
 ---
