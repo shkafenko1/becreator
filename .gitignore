@@ -1,3 +1,4 @@
-.node_modules
+node_modules
 *.exe
 package-lock.json
+.env
