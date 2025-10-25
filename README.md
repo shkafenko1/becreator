@@ -34,7 +34,7 @@
 
 ### 🛠️ Технологический стек
 
-*   **Frontend:** Next.js TypeScript, Tailwind CSS
+*   **Frontend:** Angular, TypeScript, Sass CSS
 *   **Backend:** Node.js
 *   **База данных:** PostgreSQL
 
