@@ -1,11 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Header } from './components/shared/header/header';
+import { AuthPlate } from './components/ui/landing/authPlate';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
+  imports: [Header, AuthPlate],
 })
 export class App {
   protected readonly title = signal('client');

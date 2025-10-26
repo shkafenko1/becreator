@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --primary-dark: #284b63;
+    --secondary-dark: #a7bbd1;
+}
+
+button {
+    height: 50px;
+    width: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: x-large;
+    border-radius: 20px;
+
+    &:hover {
+        background-color: var(--secondary-dark) !important;
+        cursor: pointer;
+    }
+}
+
+.primary-button {
+    background-color: var(--primary-dark) ;
+    color: white;
+    border: 2px white solid;
+}
+
+.secondary-button {
+    background-color: white;
+    color: var(--primary-dark);
+    border: 2px var(--primary-dark) solid;
+}

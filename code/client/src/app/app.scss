@@ -1,0 +1,32 @@
+.start {
+    background-color: var(--secondary-dark);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    margin: -8px;
+    padding-left: 10vw;
+    padding-right: 10vw;
+    padding-top: 30px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: var(--primary-dark);
+}
+
+.banner {
+    width: 80vw;
+    height: auto;
+    border-radius: 40px;
+}
+
+header-app {
+    margin-top: 10px;
+}
+
+auth-plate {
+    position: absolute;
+    top: 200px;
+    left: 300px;
+    align-self: flex-start;
+}
