@@ -1,0 +1,39 @@
+<div class="admin-dashboard">
+  <h1>Admin Dashboard</h1>
+  
+  <nav class="admin-nav">
+    <a routerLink="/admin" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/admin/course" routerLinkActive="active">Course Content</a>
+    <a routerLink="/admin/settings" routerLinkActive="active">Site Settings</a>
+    <a routerLink="/admin/students" routerLinkActive="active">Students</a>
+  </nav>
+
+  <div class="dashboard-content">
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+    
+    <div *ngIf="!loading && !error" class="course-overview">
+      <h2>{{ course?.title || 'My Course' }}</h2>
+      <p>{{ course?.description || 'No description' }}</p>
+      
+      <div class="stats">
+        <div class="stat-card">
+          <h3>{{ modules.length }}</h3>
+          <p>Modules</p>
+        </div>
+      </div>
+
+      <div class="modules-preview">
+        <h3>Modules</h3>
+        <div *ngIf="modules.length === 0" class="empty-state">
+          <p>No modules yet. <a routerLink="/admin/course">Create your first module</a></p>
+        </div>
+        <div *ngFor="let module of modules" class="module-preview">
+          <h4>{{ module.title }}</h4>
+          <p>{{ module.description || 'No description' }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

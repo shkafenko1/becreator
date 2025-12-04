@@ -6,6 +6,9 @@ import dotenv from 'dotenv';
 import { specs, swaggerUi } from './config/swagger.js';
 
 import healthRoutes from './routes/health.js';
+import authRoutes from './routes/auth.js';
+import adminRoutes from './routes/admin.js';
+import studentRoutes from './routes/student.js';
 
 dotenv.config();
 
@@ -27,15 +30,20 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs, {
 }));
 
 app.use('/api/health', healthRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/student', studentRoutes);
 
 app.get('/', (req, res) => {
   res.json({ 
-    message: 'Welcome to FullStack App API',
+    message: 'Welcome to BeCreator API',
     version: '1.0.0',
-    documentation: 'http://localhost:5000/api-docs',
+    documentation: '/api-docs',
     endpoints: {
       health: '/api/health',
-      users: '/api/users',
+      auth: '/api/auth',
+      admin: '/api/admin',
+      student: '/api/student',
       swagger: '/api-docs'
     }
   });
@@ -48,7 +56,9 @@ app.use('*', (req, res) => {
     available_routes: {
       root: 'GET /',
       health: 'GET /api/health',
-      users: 'GET/POST/PUT/DELETE /api/users',
+      auth: 'POST /api/auth/register, POST /api/auth/login, GET /api/auth/me',
+      admin: '/api/admin/* (requires admin auth)',
+      student: '/api/student/* (requires student auth)',
       documentation: 'GET /api-docs'
     }
   });

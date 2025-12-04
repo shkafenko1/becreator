@@ -1,4 +1,31 @@
 <div class="wrapper">
-    <div class="logo"><span>BeCreator</span></div>
-    <button class="primary-button">Start with BeCreator!</button>
+    <div class="logo">
+        <a routerLink="/"><span>BeCreator</span></a>
+    </div>
+    <div class="nav-buttons">
+        <ng-container *ngIf="!isAuthenticated()">
+            <button class="secondary-button" (click)="openLoginModal()">Login</button>
+            <button class="primary-button" (click)="openSignupModal()">Sign Up</button>
+        </ng-container>
+        <ng-container *ngIf="isAuthenticated() && isAdmin()">
+            <a routerLink="/admin" class="nav-link">Admin Panel</a>
+            <button class="secondary-button" (click)="logout()">Logout</button>
+        </ng-container>
+        <ng-container *ngIf="isAuthenticated() && isStudent()">
+            <a routerLink="/profile" class="nav-link">My Course</a>
+            <button class="secondary-button" (click)="logout()">Logout</button>
+        </ng-container>
+    </div>
 </div>
+
+<app-login-modal 
+    *ngIf="showLoginModal"
+    (close)="closeModals()"
+    (switchToSignup)="switchToSignup()"
+></app-login-modal>
+
+<app-signup-modal 
+    *ngIf="showSignupModal"
+    (close)="closeModals()"
+    (switchToLogin)="switchToLogin()"
+></app-signup-modal>

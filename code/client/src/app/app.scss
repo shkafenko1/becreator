@@ -1,4 +1,4 @@
-.start {
+.rootwrapper {
     background-color: var(--secondary-dark);
     background-repeat: no-repeat;
     background-size: cover;
@@ -14,19 +14,6 @@
     color: var(--primary-dark);
 }
 
-.banner {
-    width: 80vw;
-    height: auto;
-    border-radius: 40px;
-}
-
 header-app {
     margin-top: 10px;
-}
-
-auth-plate {
-    position: absolute;
-    top: 200px;
-    left: 300px;
-    align-self: flex-start;
 }

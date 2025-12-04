@@ -1,0 +1,48 @@
+.students {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.admin-nav {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1rem;
+  
+  a {
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: #666;
+    border-radius: 4px;
+    transition: all 0.3s;
+    
+    &:hover {
+      background: #f5f5f5;
+    }
+    
+    &.active {
+      color: #007bff;
+      background: #e7f3ff;
+      font-weight: 600;
+    }
+  }
+}
+
+.content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 2rem;
+}
+
+.error {
+  color: #c33;
+}
+

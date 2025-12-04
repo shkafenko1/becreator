@@ -1,0 +1,33 @@
+<div class="course-structure">
+  <div *ngIf="loading" class="loading">Loading course...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <div *ngIf="!loading && !error && courseStructure">
+    <div class="course-header">
+      <h1>{{ courseStructure.course.title }}</h1>
+      <p>{{ courseStructure.course.description }}</p>
+      <div *ngIf="progress" class="progress-bar">
+        <div class="progress-info">
+          <span>Progress: {{ progress.completed }}/{{ progress.total }} lessons ({{ progress.percentage }}%)</span>
+        </div>
+        <div class="progress-fill" [style.width.%]="progress.percentage"></div>
+      </div>
+    </div>
+
+    <div class="modules-list">
+      <div *ngFor="let module of courseStructure.structure" class="module-card">
+        <h2>{{ module.title }}</h2>
+        <p *ngIf="module.description">{{ module.description }}</p>
+        
+        <div class="lessons-list">
+          <div *ngFor="let lesson of module.lessons" class="lesson-item" [class.completed]="lesson.is_completed">
+            <a [routerLink]="['/lesson', lesson.id]" class="lesson-link">
+              <span class="lesson-status">{{ lesson.is_completed ? '✓' : '○' }}</span>
+              <span class="lesson-title">{{ lesson.title }}</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

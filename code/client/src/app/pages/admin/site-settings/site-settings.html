@@ -1,0 +1,21 @@
+<div class="site-settings">
+  <h1>Site Settings</h1>
+  
+  <nav class="admin-nav">
+    <a routerLink="/admin" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/admin/course" routerLinkActive="active">Course Content</a>
+    <a routerLink="/admin/settings" routerLinkActive="active">Site Settings</a>
+    <a routerLink="/admin/students" routerLinkActive="active">Students</a>
+  </nav>
+
+  <div class="content">
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+    
+    <div *ngIf="!loading && !error">
+      <p>Site settings interface coming soon. Use the API endpoints to customize your site.</p>
+    </div>
+  </div>
+</div>
+
+

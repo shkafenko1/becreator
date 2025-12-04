@@ -1,0 +1,44 @@
+<div class="lesson-page">
+  <a routerLink="/profile" class="back-link">← Back to Course</a>
+  
+  <div *ngIf="loading" class="loading">Loading lesson...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <div *ngIf="!loading && !error && lesson" class="lesson-content">
+    <h1>{{ lesson.title }}</h1>
+    
+    <div *ngIf="lesson.description" class="lesson-description">
+      <p>{{ lesson.description }}</p>
+    </div>
+
+    <div *ngIf="lesson.video_url" class="video-container">
+      <iframe
+        [src]="lesson.video_url"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div *ngIf="lesson.content" class="lesson-content-text" [innerHTML]="lesson.content"></div>
+
+    <div *ngIf="lesson.files && lesson.files.length > 0" class="lesson-files">
+      <h3>Files</h3>
+      <ul>
+        <li *ngFor="let file of lesson.files">
+          <a [href]="file.file_url" target="_blank">{{ file.file_name }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lesson-actions">
+      <button 
+        [class.completed]="isCompleted"
+        (click)="toggleComplete()"
+        class="complete-button">
+        {{ isCompleted ? '✓ Completed' : 'Mark as Complete' }}
+      </button>
+    </div>
+  </div>
+</div>
+
