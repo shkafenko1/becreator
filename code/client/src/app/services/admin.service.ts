@@ -121,9 +121,10 @@ export class AdminService {
     return this.api.get('/admin/students');
   }
 
-  enrollStudent(studentId: number): Observable<any> {
-    return this.api.post('/admin/students/enroll', { studentId });
+  enrollStudent(data: { email: string; fullName: string }): Observable<any> {
+    return this.api.post('/admin/students/enroll', data);
   }
 }
+
 
 

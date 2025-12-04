@@ -9,13 +9,61 @@
   </nav>
 
   <div class="content">
-    <div *ngIf="loading" class="loading">Loading...</div>
     <div *ngIf="error" class="error">{{ error }}</div>
     
-    <div *ngIf="!loading && !error">
-      <p>Site settings interface coming soon. Use the API endpoints to customize your site.</p>
+    <div *ngIf="!error">
+      <form *ngIf="settings" (ngSubmit)="saveSettings()" class="settings-form">
+        <h2>Branding</h2>
+        <label>
+          Primary color
+          <input type="color" [(ngModel)]="settings.primary_color" name="primaryColor" />
+        </label>
+        <label>
+          Secondary color
+          <input type="color" [(ngModel)]="settings.secondary_color" name="secondaryColor" />
+        </label>
+        <label>
+          Logo URL
+          <input type="text" [(ngModel)]="settings.logo_url" name="logoUrl" placeholder="https://..." />
+        </label>
+        <label>
+          Favicon URL
+          <input type="text" [(ngModel)]="settings.favicon_url" name="faviconUrl" placeholder="https://..." />
+        </label>
+        <label>
+          Banner image URL
+          <input type="text" [(ngModel)]="settings.banner_image_url" name="bannerImageUrl" placeholder="https://..." />
+        </label>
+
+        <h2>Landing content</h2>
+        <label>
+          Landing title
+          <input type="text" [(ngModel)]="settings.landing_title" name="landingTitle" />
+        </label>
+        <label>
+          Landing subtitle
+          <textarea [(ngModel)]="settings.landing_subtitle" name="landingSubtitle" rows="3"></textarea>
+        </label>
+
+        <h2>Footer & contacts</h2>
+        <label>
+          Footer text
+          <textarea [(ngModel)]="settings.footer_text" name="footerText" rows="2"></textarea>
+        </label>
+        <label>
+          Contact email
+          <input type="email" [(ngModel)]="settings.contact_email" name="contactEmail" />
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="primary-button" [disabled]="saving">
+            {{ saving ? 'Saving...' : 'Save settings' }}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
+
 
 

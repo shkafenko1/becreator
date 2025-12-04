@@ -15,6 +15,7 @@ export class SiteSettings implements OnInit {
   settings: any = null;
   loading = true;
   error: string = '';
+  saving = false;
 
   constructor(protected adminService: AdminService) {}
 
@@ -36,6 +37,27 @@ export class SiteSettings implements OnInit {
       error: (err: any) => {
         this.error = 'Error loading settings';
         this.loading = false;
+      }
+    });
+  }
+
+  saveSettings(): void {
+    if (!this.settings) {
+      return;
+    }
+    this.saving = true;
+    this.adminService.updateSiteSettings(this.settings).subscribe({
+      next: (response: any) => {
+        if (response.success) {
+          this.settings = response.data.settings;
+        } else {
+          this.error = 'Failed to save settings';
+        }
+        this.saving = false;
+      },
+      error: () => {
+        this.error = 'Error saving settings';
+        this.saving = false;
       }
     });
   }

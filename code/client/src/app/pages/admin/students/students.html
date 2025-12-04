@@ -9,14 +9,57 @@
   </nav>
 
   <div class="content">
-    <div *ngIf="loading" class="loading">Loading...</div>
     <div *ngIf="error" class="error">{{ error }}</div>
     
-    <div *ngIf="!loading && !error">
-      <p>Students management interface coming soon. Use the API endpoints to manage students.</p>
-      <p>Total students: {{ students.length }}</p>
+    <div *ngIf="!error">
+      <section class="enroll-section">
+        <h2>Enroll student</h2>
+        <form (ngSubmit)="enrollStudent()" class="inline-form">
+          <label>
+            Email
+            <input type="email" [(ngModel)]="newStudentEmail" name="newStudentEmail" required />
+          </label>
+          <label>
+            Full name
+            <input type="text" [(ngModel)]="newStudentName" name="newStudentName" required />
+          </label>
+          <button type="submit" class="primary-button" [disabled]="enrolling">
+            {{ enrolling ? 'Enrolling...' : 'Enroll' }}
+          </button>
+        </form>
+      </section>
+
+      <section class="students-section">
+        <h2>Students ({{ students.length }})</h2>
+
+        <div *ngIf="students.length === 0" class="empty-state">
+          <p>No students enrolled yet.</p>
+        </div>
+
+        <table *ngIf="students.length > 0" class="students-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Created</th>
+              <th>Progress</th>
+              <th>Completed / Total lessons</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of students">
+              <td>{{ s.full_name }}</td>
+              <td>{{ s.email }}</td>
+              <td>{{ s.created_at | date : 'mediumDate' }}</td>
+              <td>{{ s.progress }}%</td>
+              <td>{{ s.completed_lessons }} / {{ s.total_lessons }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
     </div>
   </div>
 </div>
+
 
 

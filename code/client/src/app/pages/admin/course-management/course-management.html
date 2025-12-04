@@ -9,14 +9,154 @@
   </nav>
 
   <div class="content">
-    <div *ngIf="loading" class="loading">Loading...</div>
     <div *ngIf="error" class="error">{{ error }}</div>
     
-    <div *ngIf="!loading && !error">
-      <p>Course management interface coming soon. Use the API endpoints to manage modules and lessons.</p>
-      <p>Modules: {{ modules.length }}</p>
+    <div *ngIf="!error">
+      <!-- Course info -->
+      <section class="course-section" *ngIf="course">
+        <h2>Course</h2>
+        <div *ngIf="!editingCourse" class="course-view">
+          <h3>{{ course.title }}</h3>
+          <p>{{ course.description || 'No description yet' }}</p>
+          <button class="primary-button" (click)="editingCourse = true">Edit course</button>
+        </div>
+        <form *ngIf="editingCourse" (ngSubmit)="saveCourse()" class="course-form">
+          <label>
+            Title
+            <input type="text" [(ngModel)]="courseTitle" name="courseTitle" required />
+          </label>
+          <label>
+            Description
+            <textarea [(ngModel)]="courseDescription" name="courseDescription" rows="3"></textarea>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="primary-button">Save</button>
+            <button type="button" class="secondary-button" (click)="editingCourse = false">Cancel</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Modules -->
+      <section class="modules-section">
+        <h2>Modules</h2>
+
+        <form (ngSubmit)="createModule()" class="inline-form">
+          <label>
+            Title
+            <input type="text" [(ngModel)]="newModuleTitle" name="newModuleTitle" placeholder="Module title" required />
+          </label>
+          <label>
+            Description
+            <input type="text" [(ngModel)]="newModuleDescription" name="newModuleDescription" placeholder="Optional description" />
+          </label>
+          <button type="submit" class="primary-button">Add module</button>
+        </form>
+
+        <div *ngIf="modules.length === 0" class="empty-state">
+          <p>No modules yet. Use the form above to create your first module.</p>
+        </div>
+
+        <div class="module-card" *ngFor="let module of modules">
+          <div *ngIf="editingModuleId !== module.id" class="module-header">
+            <div>
+              <h3>{{ module.title }}</h3>
+              <p>{{ module.description || 'No description' }}</p>
+            </div>
+            <div class="module-actions">
+              <button class="secondary-button" (click)="startEditModule(module)">Edit</button>
+              <button class="danger-button" (click)="deleteModule(module.id)">Delete</button>
+              <button class="link-button" (click)="toggleModule(module.id)">
+                {{ expandedModuleId === module.id ? 'Hide lessons' : 'Show lessons' }}
+              </button>
+            </div>
+          </div>
+
+          <form *ngIf="editingModuleId === module.id" (ngSubmit)="saveModule(module.id)" class="module-edit-form">
+            <label>
+              Title
+              <input type="text" [(ngModel)]="editingModuleTitle" name="editingModuleTitle" required />
+            </label>
+            <label>
+              Description
+              <textarea [(ngModel)]="editingModuleDescription" name="editingModuleDescription" rows="2"></textarea>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="primary-button">Save</button>
+              <button type="button" class="secondary-button" (click)="cancelEditModule()">Cancel</button>
+            </div>
+          </form>
+
+          <!-- Lessons for module -->
+          <div *ngIf="expandedModuleId === module.id" class="lessons-section">
+            <h4>Lessons</h4>
+
+            <form (ngSubmit)="createLesson(module.id)" class="inline-form">
+              <label>
+                Title
+                <input type="text" [(ngModel)]="newLessonTitle" name="newLessonTitle" required />
+              </label>
+              <label>
+                Description
+                <input type="text" [(ngModel)]="newLessonDescription" name="newLessonDescription" />
+              </label>
+              <label>
+                Video URL
+                <input type="text" [(ngModel)]="newLessonVideoUrl" name="newLessonVideoUrl" placeholder="YouTube/Vimeo URL" />
+              </label>
+              <label>
+                Content (HTML allowed)
+                <textarea [(ngModel)]="newLessonContent" name="newLessonContent" rows="3"></textarea>
+              </label>
+              <button type="submit" class="primary-button">Add lesson</button>
+            </form>
+
+            <div *ngIf="(lessonsByModule[module.id] || []).length === 0" class="empty-state">
+              <p>No lessons in this module yet.</p>
+            </div>
+
+            <div class="lesson-row" *ngFor="let lesson of lessonsByModule[module.id]">
+              <div *ngIf="editingLessonId !== lesson.id" class="lesson-view">
+                <div>
+                  <strong>{{ lesson.title }}</strong>
+                  <p>{{ lesson.description || 'No description' }}</p>
+                </div>
+                <div class="lesson-actions">
+                  <button class="secondary-button" (click)="startEditLesson(lesson)">Edit</button>
+                  <button class="danger-button" (click)="deleteLesson(module.id, lesson.id)">Delete</button>
+                </div>
+              </div>
+
+              <form *ngIf="editingLessonId === lesson.id"
+                    (ngSubmit)="saveLesson(module.id, lesson.id)"
+                    class="lesson-edit-form">
+                <label>
+                  Title
+                  <input type="text" [(ngModel)]="editingLessonTitle" name="editingLessonTitle" required />
+                </label>
+                <label>
+                  Description
+                  <input type="text" [(ngModel)]="editingLessonDescription" name="editingLessonDescription" />
+                </label>
+                <label>
+                  Video URL
+                  <input type="text" [(ngModel)]="editingLessonVideoUrl" name="editingLessonVideoUrl" />
+                </label>
+                <label>
+                  Content
+                  <textarea [(ngModel)]="editingLessonContent" name="editingLessonContent" rows="3"></textarea>
+                </label>
+                <div class="form-actions">
+                  <button type="submit" class="primary-button">Save</button>
+                  <button type="button" class="secondary-button" (click)="cancelEditLesson()">Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 </div>
+
 
 

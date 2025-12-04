@@ -9,10 +9,9 @@
   </nav>
 
   <div class="dashboard-content">
-    <div *ngIf="loading" class="loading">Loading...</div>
     <div *ngIf="error" class="error">{{ error }}</div>
     
-    <div *ngIf="!loading && !error" class="course-overview">
+    <div *ngIf="!error" class="course-overview">
       <h2>{{ course?.title || 'My Course' }}</h2>
       <p>{{ course?.description || 'No description' }}</p>
       

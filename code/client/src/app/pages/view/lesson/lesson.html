@@ -1,10 +1,9 @@
 <div class="lesson-page">
   <a routerLink="/profile" class="back-link">← Back to Course</a>
   
-  <div *ngIf="loading" class="loading">Loading lesson...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
   
-  <div *ngIf="!loading && !error && lesson" class="lesson-content">
+  <div *ngIf="!error && lesson" class="lesson-content">
     <h1>{{ lesson.title }}</h1>
     
     <div *ngIf="lesson.description" class="lesson-description">
@@ -13,7 +12,7 @@
 
     <div *ngIf="lesson.video_url" class="video-container">
       <iframe
-        [src]="lesson.video_url"
+        [src]="lesson.video_url | safeUrl"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen>

@@ -14,11 +14,30 @@ dotenv.config();
 
 const app = express();
 
+// Disable HTTP caching for API responses to ensure Angular always receives fresh JSON
+app.set('etag', false);
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store');
+  res.setHeader('Pragma', 'no-cache');
+  next();
+});
+
 app.use(helmet());
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true
-}));
+
+// CORS configuration:
+// - In production: use explicit CLIENT_URL
+// - In development: reflect request origin (useful for localhost:4200 Angular dev server)
+const corsOptions = process.env.NODE_ENV === 'production'
+  ? {
+      origin: process.env.CLIENT_URL,
+      credentials: true
+    }
+  : {
+      origin: true,
+      credentials: true
+    };
+
+app.use(cors(corsOptions));
 app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));

@@ -1,8 +1,7 @@
 <div class="course-structure">
-  <div *ngIf="loading" class="loading">Loading course...</div>
   <div *ngIf="error" class="error">{{ error }}</div>
   
-  <div *ngIf="!loading && !error && courseStructure">
+  <div *ngIf="!error && courseStructure">
     <div class="course-header">
       <h1>{{ courseStructure.course.title }}</h1>
       <p>{{ courseStructure.course.description }}</p>

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { StudentService } from '../../../services/student.service';
+import { SafeUrlPipe } from '../../../pipes/safe-url.pipe';
 
 @Component({
   selector: 'app-lesson',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SafeUrlPipe],
   templateUrl: './lesson.html',
   styleUrl: './lesson.scss'
 })
