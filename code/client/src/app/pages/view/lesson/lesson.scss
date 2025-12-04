@@ -1,13 +1,13 @@
 .lesson-page {
   max-width: 1000px;
   margin: 2rem auto;
-  padding: 0 2rem;
+  padding: 0 2rem 2.5rem;
 }
 
 .back-link {
   display: inline-block;
   margin-bottom: 2rem;
-  color: #007bff;
+  color: var(--primary);
   text-decoration: none;
   
   &:hover {
@@ -25,10 +25,11 @@
 }
 
 .lesson-content {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: #ffffff;
+  padding: 2rem 1.8rem 2.2rem;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
 h1 {
@@ -38,7 +39,7 @@ h1 {
 
 .lesson-description {
   margin-bottom: 2rem;
-  color: #666;
+  color: #4b5563;
 }
 
 .video-container {
@@ -66,9 +67,9 @@ h1 {
 
 .lesson-files {
   margin-bottom: 2rem;
-  padding: 1rem;
-  background: #f8f9fa;
-  border-radius: 4px;
+  padding: 1.2rem 1.3rem;
+  background: #f9fafb;
+  border-radius: 12px;
   
   h3 {
     margin-top: 0;

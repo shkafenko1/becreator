@@ -1,30 +1,50 @@
 :root {
-    --primary-dark: #284b63;
-    --secondary-dark: #a7bbd1;
+   /* Shared accent colors for the light-blue theme */
+   --primary: #007bff;
+   --primary-dark: #0056b3;
+   --secondary: #ffffff;
+}
+
+body {
+    background-color: var(--secondary);
 }
 
 button {
     height: 50px;
     width: auto;
-    padding-left: 10px;
-    padding-right: 10px;
-    font-size: x-large;
-    border-radius: 20px;
+    padding: 0 14px;
+    font-size: 1rem;
+    border-radius: 999px;
+    border: none;
+    font-family: inherit;
+    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease,
+      transform 0.12s ease;
 
     &:hover {
-        background-color: var(--secondary-dark) !important;
         cursor: pointer;
+        transform: translateY(-1px);
     }
 }
 
+/* App-wide CTA styles used in header, banner/auth-plate, admin and course views */
 .primary-button {
-    background-color: var(--primary-dark) ;
-    color: white;
-    border: 2px white solid;
+    background-color: var(--primary);
+    color: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 123, 255, 0.4);
+
+    &:hover {
+        background-color: var(--primary-dark);
+        box-shadow: 0 14px 35px rgba(0, 86, 179, 0.55);
+    }
 }
 
 .secondary-button {
-    background-color: white;
-    color: var(--primary-dark);
-    border: 2px var(--primary-dark) solid;
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+
+    &:hover {
+        background-color: var(--primary);
+        color: #ffffff;
+    }
 }

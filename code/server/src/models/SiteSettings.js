@@ -19,18 +19,29 @@ export class SiteSettings {
     return result.rows[0];
   }
 
-  static async update(adminId, settings) {
-    const {
-      primaryColor,
-      secondaryColor,
-      logoUrl,
-      faviconUrl,
-      bannerImageUrl,
-      landingTitle,
-      landingSubtitle,
-      footerText,
-      contactEmail
-    } = settings;
+  static async update(adminId, settings = {}) {
+    const normalize = (camelKey, snakeKey) => {
+      if (settings[camelKey] !== undefined) {
+        return settings[camelKey];
+      }
+      if (settings[snakeKey] !== undefined) {
+        return settings[snakeKey];
+      }
+      return null;
+    };
+
+    const clean = (value) =>
+      typeof value === 'string' ? value.trim() : value;
+
+    const primaryColor = clean(normalize('primaryColor', 'primary_color'));
+    const secondaryColor = clean(normalize('secondaryColor', 'secondary_color'));
+    const logoUrl = clean(normalize('logoUrl', 'logo_url'));
+    const faviconUrl = clean(normalize('faviconUrl', 'favicon_url'));
+    const bannerImageUrl = clean(normalize('bannerImageUrl', 'banner_image_url'));
+    const landingTitle = clean(normalize('landingTitle', 'landing_title'));
+    const landingSubtitle = clean(normalize('landingSubtitle', 'landing_subtitle'));
+    const footerText = clean(normalize('footerText', 'footer_text'));
+    const contactEmail = clean(normalize('contactEmail', 'contact_email'));
 
     const result = await query(
       `UPDATE site_settings 

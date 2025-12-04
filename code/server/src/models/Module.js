@@ -32,10 +32,12 @@ export class Module {
   static async update(id, { title, description, orderIndex }) {
     const result = await query(
       `UPDATE modules 
-       SET title = $1, description = $2, order_index = $3
+       SET title = $1,
+           description = $2,
+           order_index = COALESCE($3, order_index)
        WHERE id = $4
        RETURNING *`,
-      [title, description, orderIndex, id]
+      [title, description, orderIndex ?? null, id]
     );
     return result.rows[0] || null;
   }

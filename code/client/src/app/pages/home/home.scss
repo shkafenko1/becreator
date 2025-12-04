@@ -1,12 +1,74 @@
+:host {
+  display: block;
+}
+
+.hero {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.banner-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .banner {
-    width: 80vw;
-    height: auto;
-    border-radius: 40px;
+  width: 80vw;
+  height: auto;
+  border-radius: 40px;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
 auth-plate {
-    position: absolute;
-    top: 230px;
-    left: 300px;
-    align-self: flex-start;
+  pointer-events: auto;
+}
+
+.personalized-content {
+  width: min(1100px, 100%);
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 32px;
+  background: #ffffff;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.custom-banner img {
+  width: 100%;
+  border-radius: 24px;
+  object-fit: cover;
+  max-height: 360px;
+}
+
+.custom-copy h1 {
+  font-size: clamp(2rem, 3vw, 3rem);
+  margin-bottom: 0.5rem;
+}
+
+.custom-copy p {
+  font-size: 1.1rem;
+  color: #4b5563;
+  margin: 0;
+}
+
+.empty-state {
+  border: 1px dashed #cbd5f5;
+  border-radius: 24px;
+  padding: 2rem;
+  text-align: center;
+  color: #475569;
 }

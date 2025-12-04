@@ -9,6 +9,7 @@ import healthRoutes from './routes/health.js';
 import authRoutes from './routes/auth.js';
 import adminRoutes from './routes/admin.js';
 import studentRoutes from './routes/student.js';
+import siteRoutes from './routes/site.js';
 
 dotenv.config();
 
@@ -52,6 +53,7 @@ app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/student', studentRoutes);
+app.use('/api/site', siteRoutes);
 
 app.get('/', (req, res) => {
   res.json({ 
@@ -63,6 +65,7 @@ app.get('/', (req, res) => {
       auth: '/api/auth',
       admin: '/api/admin',
       student: '/api/student',
+      site: '/api/site',
       swagger: '/api-docs'
     }
   });

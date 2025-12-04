@@ -1,0 +1,14 @@
+<footer class="app-footer" *ngIf="text || email">
+  <div class="app-footer__inner">
+    <span class="app-footer__text" *ngIf="text">{{ text }}</span>
+    <a
+      *ngIf="email"
+      class="app-footer__link"
+      [href]="'mailto:' + email"
+    >
+      {{ email }}
+    </a>
+  </div>
+</footer>
+
+

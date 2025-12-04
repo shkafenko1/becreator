@@ -45,11 +45,21 @@ export const getLesson = async (req, res) => {
       });
     }
 
-    // Verify lesson belongs to student's course
-    const structure = await Lesson.getCourseStructure(course.id);
-    const lessonExists = structure.some(module => 
-      module.lessons.some(l => l.id === parseInt(req.params.id))
-    );
+    // Verify lesson belongs to student's course and get completion state
+    const structure = await Lesson.getCourseStructure(course.id, req.user.id);
+    let lessonExists = false;
+    let isCompleted = false;
+
+    for (const module of structure) {
+      for (const l of module.lessons) {
+        if (l.id === parseInt(req.params.id, 10)) {
+          lessonExists = true;
+          isCompleted = !!l.is_completed;
+          break;
+        }
+      }
+      if (lessonExists) break;
+    }
 
     if (!lessonExists) {
       return res.status(403).json({
@@ -58,7 +68,7 @@ export const getLesson = async (req, res) => {
       });
     }
 
-    res.json({ success: true, data: { lesson } });
+    res.json({ success: true, data: { lesson: { ...lesson, is_completed: isCompleted } } });
   } catch (error) {
     console.error('Get lesson error:', error);
     res.status(500).json({

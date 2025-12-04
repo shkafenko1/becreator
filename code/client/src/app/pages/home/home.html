@@ -1,4 +1,39 @@
-<div class="banner-container">
-        <img src="/banner.jpg" alt="banner" class="banner">
-</div>
-<auth-plate></auth-plate>
+<ng-container *ngIf="isAuthenticated(); else guestView">
+  <section class="personalized-content">
+    <div *ngIf="settingsError()" class="empty-state">
+      <h2>Landing content is not available right now</h2>
+      <p>{{ settingsError() }}</p>
+    </div>
+
+    <ng-container *ngIf="!settingsError()">
+      <ng-container *ngIf="siteSettings(); else noCustomContent">
+        <div class="custom-banner">
+          <img [src]="bannerUrl()" alt="Custom banner" />
+        </div>
+
+        <div class="custom-copy">
+          <h1>{{ siteSettings()?.landing_title || 'Welcome back!' }}</h1>
+          <p *ngIf="siteSettings()?.landing_subtitle">{{ siteSettings()?.landing_subtitle }}</p>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #noCustomContent>
+      <div class="empty-state">
+        <h2>Landing content is not configured yet</h2>
+        <p>Ask your administrator to add it under Site Settings.</p>
+      </div>
+    </ng-template>
+  </section>
+</ng-container>
+
+<ng-template #guestView>
+  <div class="hero">
+    <div class="banner-container">
+      <img src="/banner.jpg" alt="BeCreator banner" class="banner" />
+    </div>
+    <div class="hero-overlay">
+      <auth-plate></auth-plate>
+    </div>
+  </div>
+</ng-template>

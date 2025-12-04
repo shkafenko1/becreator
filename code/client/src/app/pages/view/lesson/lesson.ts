@@ -36,7 +36,7 @@ export class Lesson implements OnInit {
       next: (response: any) => {
         if (response.success) {
           this.lesson = response.data.lesson;
-          // Check if completed (this would come from the API in a real implementation)
+          this.isCompleted = !!this.lesson.is_completed;
         } else {
           this.error = 'Failed to load lesson';
         }
